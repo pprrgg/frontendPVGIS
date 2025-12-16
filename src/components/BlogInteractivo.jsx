@@ -63,20 +63,40 @@ const NavigationBarDocs = () => {
   }, [searchText]);
 
   // Filtrado de fichas
-  const filteredData = useMemo(() => {
-    const normalizedSearch = normalize(searchText);
-    return Catalogo.filter((item) => {
-      const cod = normalize(item.cod);
-      const sector = normalize(item.sector);
-      const grupo = normalize(item.grupo);
-      return (
-        !searchText ||
-        cod.includes(normalizedSearch) ||
-        sector.includes(normalizedSearch) ||
-        grupo.includes(normalizedSearch)
-      );
-    });
-  }, [searchText]);
+  // const filteredData = useMemo(() => {
+  //   const normalizedSearch = normalize(searchText);
+  //   return Catalogo.filter((item) => {
+  //     const cod = normalize(item.cod);
+  //     const sector = normalize(item.sector);
+  //     const grupo = normalize(item.grupo);
+  //     return (
+  //       !searchText ||
+  //       cod.includes(normalizedSearch) ||
+  //       sector.includes(normalizedSearch) ||
+  //       grupo.includes(normalizedSearch)
+  //     );
+  //   });
+  // }, [searchText]);
+const filteredData = useMemo(() => {
+  const normalizedSearch = normalize(searchText);
+  const grupoObjetivo = normalize("A6_Sistema_FV");
+
+  return Catalogo.filter((item) => {
+    const cod = normalize(item.cod);
+    const sector = normalize(item.sector);
+    const grupo = normalize(item.grupo);
+
+    // 👉 Filtra solo el grupo Sistema FV
+    if (grupo !== grupoObjetivo) return false;
+
+    return (
+      !searchText ||
+      cod.includes(normalizedSearch) ||
+      sector.includes(normalizedSearch) ||
+      grupo.includes(normalizedSearch)
+    );
+  });
+}, [searchText]);
 
   // Agrupamiento de fichas
   const groupedData = useMemo(() => {

@@ -50,7 +50,7 @@ const InicioSection = () => {
               fontWeight: 700,
             }}
           >
-            InformeTécnico.app
+            PVGIS.es
           </Typography>
 
           {/* Subtitle */}
